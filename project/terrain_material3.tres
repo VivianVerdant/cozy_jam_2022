@@ -1,0 +1,10 @@
+[gd_resource type="SpatialMaterial" load_steps=3 format=2]
+
+[ext_resource path="res://textures/Grass_01_Nrm_1.png" type="Texture" id=1]
+[ext_resource path="res://textures/Grass_01_1_bakedAO.png" type="Texture" id=2]
+
+[resource]
+albedo_texture = ExtResource( 2 )
+normal_enabled = true
+normal_scale = -0.2
+normal_texture = ExtResource( 1 )

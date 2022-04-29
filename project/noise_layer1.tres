@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://noise_filter.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+enabled = true
+scale = 0.5
+roughness = 16.0
+octaves = 3
+center = Vector3( 0, 0, 0 )
+offset = 0.0
+noiseSeed = 177573
+randomizeSeed = false

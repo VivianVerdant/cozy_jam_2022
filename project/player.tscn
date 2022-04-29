@@ -1,0 +1,86 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://player.gd" type="Script" id=1]
+
+[sub_resource type="CylinderShape" id=2]
+radius = 1.15
+height = 4.0
+
+[sub_resource type="Shader" id=3]
+code = "shader_type spatial;
+render_mode specular_schlick_ggx, unshaded;
+
+uniform sampler2D tex_frg_2;
+
+
+
+void vertex() {
+// Output:0
+
+}
+
+void fragment() {
+// Texture:2
+	vec4 tex_frg_2_read = texture(tex_frg_2, UV.xy);
+	vec3 n_out2p0 = tex_frg_2_read.rgb;
+	float n_out2p1 = tex_frg_2_read.a;
+
+// Output:0
+	ALBEDO = n_out2p0;
+
+}
+
+void light() {
+// Output:0
+
+}
+"
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = SubResource( 3 )
+
+[sub_resource type="PlaneMesh" id=5]
+size = Vector2( 25, 25 )
+
+[sub_resource type="SpatialMaterial" id=6]
+
+[node name="player" type="Spatial"]
+script = ExtResource( 1 )
+
+[node name="ray_cast" type="RayCast" parent="."]
+enabled = true
+cast_to = Vector3( 0, -20, 0 )
+
+[node name="camera_reference" type="Spatial" parent="."]
+
+[node name="camera" type="Camera" parent="camera_reference"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 6, 0 )
+current = true
+fov = 90.0
+
+[node name="plant_area" type="Area" parent="camera_reference"]
+collision_layer = 2
+collision_mask = 2
+
+[node name="collision_shape" type="CollisionShape" parent="camera_reference/plant_area"]
+shape = SubResource( 2 )
+
+[node name="csg_sphere" type="CSGSphere" parent="camera_reference"]
+visible = false
+material_override = SubResource( 4 )
+radius = 0.128
+
+[node name="csg_mesh" type="CSGMesh" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.0907, 0 )
+visible = false
+mesh = SubResource( 5 )
+material = SubResource( 6 )
+
+[node name="directional_light" type="DirectionalLight" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 8.26317, 0 )
+visible = false
+shadow_enabled = true
+editor_only = true
+
+[connection signal="area_entered" from="camera_reference/plant_area" to="." method="_on_plant_area_entered"]
+[connection signal="area_exited" from="camera_reference/plant_area" to="." method="_on_plant_area_exited"]

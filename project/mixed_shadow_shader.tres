@@ -1,0 +1,121 @@
+[gd_resource type="Shader" format=2]
+
+[resource]
+code = "// NOTE: Shader automatically converted from Godot Engine 3.4.2.stable's SpatialMaterial.
+
+shader_type spatial;
+render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_burley,specular_schlick_ggx;
+uniform vec4 albedo : hint_color;
+uniform sampler2D texture_albedo : hint_albedo;
+uniform float specular;
+uniform float metallic;
+uniform float roughness : hint_range(0,1);
+uniform float point_size : hint_range(0,128);
+uniform vec3 uv1_scale = vec3(1);
+uniform vec3 uv1_offset;
+uniform vec3 uv2_scale;
+uniform vec3 uv2_offset;
+
+uniform float blur_directions;
+uniform float blur_quality;
+
+uniform float noise_scale = 2.0;
+uniform float speed = 20.0;
+uniform sampler2D noise;
+uniform float freqA = 1.0;
+uniform float ampA = 1.0;
+uniform float scaleA = 1.0;
+uniform float blurA = 1.0;
+uniform float freqB = 1.0;
+uniform float ampB = 1.0; 
+uniform float scaleB = 1.0;
+uniform float blurB = 1.0;
+uniform float freqC = 1.0;
+uniform float ampC = 1.0; 
+uniform float scaleC = 1.0;
+uniform float blurC = 1.0;
+
+varying vec3 VERTEX_WORLD;
+varying vec2 iResolution;
+varying float iTime;
+
+vec2 distort(vec2 v,float time,float amp)
+{
+	float d1 = v.x/16.;
+    float d2 = v.y/16.;
+    d1 = sin(time + d1 * 15.05)/12.;
+    d2 = sin(time + d2 * 14.05)/12.;
+    vec2 dist = vec2(
+    	sin(d1) * amp + cos(d1),
+    	cos(d2) + sin(d2) * amp
+    )*.2;
+	return dist+v;
+}
+
+
+float gaussian(vec2 fragCoord,float size)
+{
+    float Pi = 6.28318530718; // Pi*2
+    
+    // GAUSSIAN BLUR SETTINGS {{{
+    //float Directions = 12.0; // BLUR DIRECTIONS (Default 16.0 - More is better but slower)
+    //float Quality = 3.0; // BLUR QUALITY (Default 4.0 - More is better but slower)
+    //float Size = 8.0; // BLUR SIZE (Radius)
+    // GAUSSIAN BLUR SETTINGS }}}
+   
+    vec2 Radius = size/iResolution.xy;
+    
+    // Pixel colour
+    float s = texture( noise, fragCoord).x;
+    
+    // Blur calculations
+    for( float d=0.0; d<Pi; d+=Pi/blur_directions)
+		for(float i=1.0/blur_quality; i<=1.0; i+=1.0/blur_quality)
+			s += texture( noise, fragCoord+vec2(cos(d),sin(d))*Radius*i).x;
+    
+    // Output to screen
+    s /= blur_quality * blur_directions - 15.0;
+    return s;
+}
+
+float leaves(vec2 fragCoord, float r,float freq,float amp,float scale,float blur_amount)
+{
+    vec2 map=fragCoord/iResolution.xy;
+    float t=iTime*speed*freq+r;
+    vec2 f=vec2(1,iResolution.y/iResolution.x)*(1.+r);
+    //vec2 m = rotate(map*f,vec2(2.-r*2.)*f,cos (t)*cos(t*.5));
+	vec2 m = distort(map*f,t,amp);
+    //float sh=smoothstep(.31+.1*(1.-r),r*.3,texture (noise, m*noise_scale*scale).x);
+	float blurred_noise = gaussian(m*noise_scale*scale,blur_amount);
+    return blurred_noise;
+}
+
+void vertex() {
+	ROUGHNESS=roughness;
+	UV=UV*uv1_scale.xy+uv1_offset.xy;
+	VERTEX_WORLD = 2.*( WORLD_MATRIX * vec4( VERTEX, 1.0 ) ).xzy;
+	//VERTEX_WORLD = (CAMERA_MATRIX * vec4(VERTEX, 1.0)).xyz;
+	iResolution = VIEWPORT_SIZE;
+	iTime = TIME;
+}
+
+void fragment() {
+	vec2 base_uv = UV;
+	vec4 albedo_tex = texture(texture_albedo,UV);
+	ALBEDO = albedo.rgb * albedo_tex.rgb;
+	METALLIC = metallic;
+	ROUGHNESS = roughness;
+	SPECULAR = specular;
+	
+	float buffer = leaves(VERTEX_WORLD.xy,1.5,freqA,ampA,scaleA,blurA)/20.+.5;
+	buffer = leaves(VERTEX_WORLD.xy,1.4,freqB,ampB,scaleB,blurB)/20. + buffer;
+	buffer = leaves(VERTEX_WORLD.xy,1.6,freqC,ampC,scaleC,blurC)/20. + buffer;
+	
+	
+	ALBEDO *= (vec3(buffer)-.5)*16.+.5;
+	
+	//ALPHA = ALBEDO.x;
+	// ALPHA = max( h - bias, 0.0 );
+	
+}
+"

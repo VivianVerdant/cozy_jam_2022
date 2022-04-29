@@ -1,0 +1,112 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Label",
+"class": "ViewportText",
+"language": "GDScript",
+"path": "res://addons/spatial_text_gizmo/viewport_text_class.gd"
+}, {
+"base": "Spatial",
+"class": "lod_label",
+"language": "GDScript",
+"path": "res://terrain_tool/lod_label.gd"
+}, {
+"base": "Resource",
+"class": "noise_filter",
+"language": "GDScript",
+"path": "res://noise_filter.gd"
+}, {
+"base": "Position3D",
+"class": "point_feature",
+"language": "GDScript",
+"path": "res://point_feature.gd"
+}, {
+"base": "Spatial",
+"class": "terrain_chunk",
+"language": "GDScript",
+"path": "res://terrain_chunk.gd"
+}, {
+"base": "MeshInstance",
+"class": "terrain_mesh",
+"language": "GDScript",
+"path": "res://terrain_mesh.gd"
+} ]
+_global_script_class_icons={
+"ViewportText": "",
+"lod_label": "",
+"noise_filter": "",
+"point_feature": "",
+"terrain_chunk": "",
+"terrain_mesh": ""
+}
+
+[application]
+
+config/name="Cozy Jam 2022"
+run/main_scene="res://default.tscn"
+config/icon="res://icon.png"
+
+[autoload]
+
+Draw="*res://Draw.gd"
+DispatchQueue="res://addons/dispatch_queue/dispatch_queue.gd"
+
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/spatial_text_gizmo/plugin.cfg" )
+
+[input]
+
+Up={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777232,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":87,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+, Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":-1,"axis":1,"axis_value":-1.0,"script":null)
+ ]
+}
+Down={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777234,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":83,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+, Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":-1,"axis":1,"axis_value":1.0,"script":null)
+ ]
+}
+Left={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777231,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":65,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+, Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":-1,"axis":0,"axis_value":-1.0,"script":null)
+ ]
+}
+Right={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777233,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":68,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+, Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":-1,"axis":0,"axis_value":1.0,"script":null)
+ ]
+}
+
+[node]
+
+name_casing=2
+
+[physics]
+
+common/enable_pause_aware_picking=true
+
+[rendering]
+
+quality/shadows/filter_mode=2
+quality/filters/use_nearest_mipmap_filter=true
+quality/filters/msaa=2
+quality/filters/use_fxaa=true
+quality/filters/use_debanding=true
+environment/default_environment="res://default_env.tres"

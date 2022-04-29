@@ -1,0 +1,36 @@
+[remap]
+
+importer="texture"
+type="StreamTexture"
+path.s3tc="res://.import/Voronoi 14 - 512x512.png-e6604d34d4fd3ba0be28097aa7266b7f.s3tc.stex"
+path.etc2="res://.import/Voronoi 14 - 512x512.png-e6604d34d4fd3ba0be28097aa7266b7f.etc2.stex"
+metadata={
+"imported_formats": [ "s3tc", "etc2" ],
+"vram_texture": true
+}
+
+[deps]
+
+source_file="res://textures/512x512/Voronoi/Voronoi 14 - 512x512.png"
+dest_files=[ "res://.import/Voronoi 14 - 512x512.png-e6604d34d4fd3ba0be28097aa7266b7f.s3tc.stex", "res://.import/Voronoi 14 - 512x512.png-e6604d34d4fd3ba0be28097aa7266b7f.etc2.stex" ]
+
+[params]
+
+compress/mode=2
+compress/lossy_quality=0.7
+compress/hdr_mode=0
+compress/bptc_ldr=0
+compress/normal_map=0
+flags/repeat=true
+flags/filter=true
+flags/mipmaps=true
+flags/anisotropic=false
+flags/srgb=2
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/HDR_as_SRGB=false
+process/invert_color=false
+stream=false
+size_limit=0
+detect_3d=false
+svg/scale=1.0

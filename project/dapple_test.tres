@@ -1,0 +1,121 @@
+[gd_resource type="VisualShader" load_steps=7 format=2]
+
+[sub_resource type="VisualShaderNodeGlobalExpression" id=5]
+size = Vector2( 1256, 539 )
+expression = "const vec2 iResolution = vec2(512,512);
+
+float leaves(vec2 fragCoord, float s, float r,float iTime)
+{
+    vec2 map=fragCoord/iResolution.xy;
+    float t=cos(iTime*.5+r);
+    vec2 f=vec2(1,iResolution.y/iResolution.x)*(1.+r);
+    float sh=smoothstep(.31+.1*(1.-r),r*.3,0.5);
+    return min(s,sh);
+}
+"
+
+[sub_resource type="VisualShaderNodeInput" id=4]
+output_port_for_preview = 0
+input_name = "vertex"
+
+[sub_resource type="VisualShaderNodeExpression" id=6]
+size = Vector2( 1451, 298.304 )
+expression = "VERTEX = (inverse(WORLD_MATRIX) * CAMERA_MATRIX * vec4(VERTEX_IN, 1.0)).xyz;"
+
+[sub_resource type="VisualShaderNodeExpression" id=7]
+size = Vector2( 1387.16, 1202.16 )
+expression = "vec3 vertex = (inverse(WORLD_MATRIX) * CAMERA_MATRIX * vec4(VERTEX_IN, 1.0)).xyz;
+vec2 fragCoord = vertex.xz;
+mainImage = vec3(leaves(fragCoord,1.,0.,float TIME));"
+
+[sub_resource type="VisualShaderNodeVectorCompose" id=8]
+
+[sub_resource type="VisualShaderNodeVectorCompose" id=9]
+
+[resource]
+code = "shader_type spatial;
+render_mode specular_schlick_ggx, unshaded;
+
+
+
+// GlobalExpression:0
+	const vec2 iResolution = vec2(512,512);
+	
+	float leaves(vec2 fragCoord, float s, float r,float iTime)
+	{
+	    vec2 map=fragCoord/iResolution.xy;
+	    float t=cos(iTime*.5+r);
+	    vec2 f=vec2(1,iResolution.y/iResolution.x)*(1.+r);
+	    float sh=smoothstep(.31+.1*(1.-r),r*.3,0.5);
+	    return min(s,sh);
+	}
+	
+
+void vertex() {
+// Output:0
+
+}
+
+void fragment() {
+// Input:5
+	vec3 n_out5p0 = VERTEX;
+
+// Expression:7
+	vec3 n_out7p0;
+	n_out7p0 = vec3(0.0, 0.0, 0.0);
+	{
+		vec3 vertex = (inverse(WORLD_MATRIX) * CAMERA_MATRIX * vec4(n_out5p0, 1.0)).xyz;
+		vec2 fragCoord = vertex.xz;
+		n_out7p0 = vec3(leaves(fragCoord,1.,0.,float TIME));
+	}
+
+// Output:0
+	ALBEDO = n_out7p0;
+
+}
+
+void light() {
+// Output:0
+
+}
+"
+graph_offset = Vector2( -1152.95, 12.3503 )
+flags/unshaded = true
+nodes/fragment/0/position = Vector2( 1960, 100 )
+nodes/fragment/5/node = SubResource( 4 )
+nodes/fragment/5/position = Vector2( -540, 260 )
+nodes/fragment/6/node = SubResource( 6 )
+nodes/fragment/6/position = Vector2( -960, -100 )
+nodes/fragment/6/size = Vector2( 1451, 298.304 )
+nodes/fragment/6/input_ports = "0,1,VERTEX_IN;"
+nodes/fragment/6/output_ports = "0,1,VERTEX;"
+nodes/fragment/6/expression = "VERTEX = (inverse(WORLD_MATRIX) * CAMERA_MATRIX * vec4(VERTEX_IN, 1.0)).xyz;"
+nodes/fragment/7/node = SubResource( 7 )
+nodes/fragment/7/position = Vector2( 80, 460 )
+nodes/fragment/7/size = Vector2( 1387.16, 1202.16 )
+nodes/fragment/7/input_ports = "0,1,VERTEX_IN;"
+nodes/fragment/7/output_ports = "0,1,mainImage;"
+nodes/fragment/7/expression = "vec3 vertex = (inverse(WORLD_MATRIX) * CAMERA_MATRIX * vec4(VERTEX_IN, 1.0)).xyz;
+vec2 fragCoord = vertex.xz;
+mainImage = vec3(leaves(fragCoord,1.,0.,float TIME));"
+nodes/fragment/8/node = SubResource( 8 )
+nodes/fragment/8/position = Vector2( -760, 520 )
+nodes/fragment/9/node = SubResource( 9 )
+nodes/fragment/9/position = Vector2( -760, 700 )
+nodes/fragment/11/node = SubResource( 5 )
+nodes/fragment/11/position = Vector2( -880, 920 )
+nodes/fragment/11/size = Vector2( 1256, 539 )
+nodes/fragment/11/input_ports = ""
+nodes/fragment/11/output_ports = ""
+nodes/fragment/11/expression = "const vec2 iResolution = vec2(512,512);
+
+float leaves(vec2 fragCoord, float s, float r,float iTime)
+{
+    vec2 map=fragCoord/iResolution.xy;
+    float t=cos(iTime*.5+r);
+    vec2 f=vec2(1,iResolution.y/iResolution.x)*(1.+r);
+    float sh=smoothstep(.31+.1*(1.-r),r*.3,0.5);
+    return min(s,sh);
+}
+"
+nodes/fragment/connections = PoolIntArray( 7, 0, 0, 0, 5, 0, 7, 0 )

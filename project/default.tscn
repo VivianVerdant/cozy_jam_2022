@@ -1,0 +1,160 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://terrain.gd" type="Script" id=1]
+[ext_resource path="res://player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://main.gd" type="Script" id=3]
+[ext_resource path="res://mixed_shadow_shader.tres" type="Shader" id=5]
+[ext_resource path="res://audio/tintinabulation.ogg" type="AudioStream" id=6]
+[ext_resource path="res://point_feature.gd" type="Script" id=7]
+[ext_resource path="res://audio/dawn at new hope_01.ogg" type="AudioStream" id=8]
+[ext_resource path="res://textures/Grass_01_1_bakedAO.png" type="Texture" id=9]
+[ext_resource path="res://textures/gobos/gobo1.png" type="Texture" id=10]
+
+[sub_resource type="ShaderMaterial" id=6]
+shader = ExtResource( 5 )
+shader_param/albedo = Color( 1, 1, 1, 1 )
+shader_param/specular = null
+shader_param/metallic = null
+shader_param/roughness = null
+shader_param/point_size = null
+shader_param/uv1_scale = Vector3( 1, 1, 1 )
+shader_param/uv1_offset = null
+shader_param/uv2_scale = null
+shader_param/uv2_offset = null
+shader_param/blur_directions = 12.0
+shader_param/blur_quality = 6.0
+shader_param/noise_scale = 1.0
+shader_param/speed = 1.0
+shader_param/freqA = 1.0
+shader_param/ampA = 0.02
+shader_param/scaleA = 4.2
+shader_param/blurA = 1.0
+shader_param/freqB = 1.1
+shader_param/ampB = 0.01
+shader_param/scaleB = 7.205
+shader_param/blurB = 1.0
+shader_param/freqC = 1.2
+shader_param/ampC = 0.01
+shader_param/scaleC = 6.665
+shader_param/blurC = 1.0
+shader_param/texture_albedo = ExtResource( 9 )
+shader_param/noise = ExtResource( 10 )
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.137255, 0.137255, 0.137255, 1 )
+
+[sub_resource type="PlaneMesh" id=7]
+size = Vector2( 8, 8 )
+
+[sub_resource type="ShaderMaterial" id=8]
+shader = ExtResource( 5 )
+shader_param/albedo = Color( 1, 1, 1, 1 )
+shader_param/specular = null
+shader_param/metallic = null
+shader_param/roughness = null
+shader_param/point_size = null
+shader_param/uv1_scale = Vector3( 1, 1, 1 )
+shader_param/uv1_offset = null
+shader_param/uv2_scale = null
+shader_param/uv2_offset = null
+shader_param/blur_directions = 12.0
+shader_param/blur_quality = 6.0
+shader_param/noise_scale = 1.0
+shader_param/speed = 1.0
+shader_param/freqA = 1.0
+shader_param/ampA = 0.02
+shader_param/scaleA = 4.2
+shader_param/blurA = 1.0
+shader_param/freqB = 1.1
+shader_param/ampB = 0.01
+shader_param/scaleB = 7.205
+shader_param/blurB = 1.0
+shader_param/freqC = 1.2
+shader_param/ampC = 0.01
+shader_param/scaleC = 6.665
+shader_param/blurC = 1.0
+shader_param/texture_albedo = ExtResource( 9 )
+shader_param/noise = ExtResource( 10 )
+
+[sub_resource type="Environment" id=9]
+background_energy = 0.0
+ambient_light_color = Color( 0.964706, 1, 0.490196, 1 )
+ambient_light_sky_contribution = 0.0
+fog_depth_begin = 0.0
+fog_depth_end = 6.0
+fog_depth_curve = 0.840897
+fog_height_curve = 0.002022
+tonemap_mode = 3
+ssao_enabled = true
+ssao_intensity = 16.25
+ssao_radius2 = 4.07
+ssao_intensity2 = 7.6
+glow_enabled = true
+glow_intensity = 4.56
+glow_strength = 0.62
+glow_bloom = 1.0
+adjustment_enabled = true
+adjustment_brightness = 1.1
+adjustment_contrast = 1.1
+adjustment_saturation = 1.16
+
+[node name="default" type="Spatial"]
+script = ExtResource( 3 )
+
+[node name="player" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0 )
+
+[node name="terrain" type="Spatial" parent="."]
+script = ExtResource( 1 )
+material = SubResource( 6 )
+
+[node name="features" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 100, 0 )
+
+[node name="point_feature" type="Position3D" parent="features"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 48.6212, -100.011, -70.9089 )
+script = ExtResource( 7 )
+feature_name = "river_point"
+
+[node name="loading_screen" type="PanelContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="center" type="CenterContainer" parent="loading_screen"]
+margin_right = 1024.0
+margin_bottom = 600.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="label" type="Label" parent="loading_screen/center"]
+margin_left = 481.0
+margin_top = 293.0
+margin_right = 543.0
+margin_bottom = 307.0
+rect_pivot_offset = Vector2( 31, 7 )
+text = "LOADING"
+
+[node name="audio_stream_player" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+autoplay = true
+
+[node name="audio_stream_player2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+pitch_scale = 0.5
+autoplay = true
+bus = "reverb"
+
+[node name="csg_mesh" type="CSGMesh" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.68614, 0 )
+mesh = SubResource( 7 )
+material = SubResource( 8 )
+
+[node name="world_environment" type="WorldEnvironment" parent="."]
+environment = SubResource( 9 )
+
+[connection signal="plant_step_taken" from="player" to="." method="_on_player_plant_step_taken"]
