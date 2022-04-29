@@ -26,23 +26,23 @@ func _ready():
 		dispatch_queue.thread_count = 1
 		dispatch_queue.connect("all_tasks_finished",self,"done_loading")
 		terrain_node.dispatch_queue = dispatch_queue
-	
+
 func reset_explored(_value):
 	explored = []
 	#terrain_node.terrain_chunks = []
 	if terrain_node:
 		for node in terrain_node.get_children():
 			node.free()
-			
+
 
 func _process(_delta):
-	
+
 	if not focus_node:
-		focus_node = $player 
-		
+		focus_node = $player
+
 	if not terrain_node:
 		terrain_node = $terrain
-	
+
 	if focus_node.translation != focus_position:
 		focus_position = focus_node.translation
 		current_cell = Vector2(floor(focus_position.x/terrain_node.settings.size),floor(focus_position.z/terrain_node.settings.size))
