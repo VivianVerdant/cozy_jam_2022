@@ -9,11 +9,6 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Label",
-"class": "ViewportText",
-"language": "GDScript",
-"path": "res://addons/spatial_text_gizmo/viewport_text_class.gd"
-}, {
 "base": "Spatial",
 "class": "lod_label",
 "language": "GDScript",
@@ -23,11 +18,6 @@ _global_script_classes=[ {
 "class": "noise_filter",
 "language": "GDScript",
 "path": "res://noise_filter.gd"
-}, {
-"base": "Position3D",
-"class": "point_feature",
-"language": "GDScript",
-"path": "res://point_feature.gd"
 }, {
 "base": "Spatial",
 "class": "terrain_chunk",
@@ -40,10 +30,8 @@ _global_script_classes=[ {
 "path": "res://terrain_mesh.gd"
 } ]
 _global_script_class_icons={
-"ViewportText": "",
 "lod_label": "",
 "noise_filter": "",
-"point_feature": "",
 "terrain_chunk": "",
 "terrain_mesh": ""
 }
@@ -58,10 +46,7 @@ config/icon="res://icon.png"
 
 Draw="*res://Draw.gd"
 DispatchQueue="res://addons/dispatch_queue/dispatch_queue.gd"
-
-[editor_plugins]
-
-enabled=PoolStringArray( "res://addons/spatial_text_gizmo/plugin.cfg" )
+Plant="*res://plant.tscn"
 
 [input]
 

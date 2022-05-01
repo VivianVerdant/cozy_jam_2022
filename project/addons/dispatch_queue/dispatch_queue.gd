@@ -1,4 +1,4 @@
-extends Reference
+extends Resource
 
 signal all_tasks_finished()
 
@@ -6,7 +6,7 @@ class TaskGroup:
 	"""
 	Helper object that emits `finished` after all Tasks in a list finish.
 	"""
-	extends Reference
+	extends Resource
 	
 	signal finished(results)
 	

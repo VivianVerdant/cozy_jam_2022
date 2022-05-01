@@ -48,14 +48,6 @@ func create_terrain_chunk(position):
 	#print("making chunk")
 	var chunk = terrain_chunk.new(position,settings,noise_layers,material)
 	add_child(chunk)
-	if not features_node:
-		features_node = $"../features"
-	for node in features_node.get_children():
-		var a = Vector2(node.translation.x,node.translation.z)
-		var b = Vector2(position.x,position.z)
-		if a.distance_to(b) < settings.size()*8:
-			#print(node.name)
-			chunk.features.append(node)
 	#chunk.set_owner(get_tree().edited_scene_root)
 	chunk.initialize(dispatch_queue)
 	chunk.name = str(floor(position.x/settings.size)) + "," + str(floor(position.z/settings.size))

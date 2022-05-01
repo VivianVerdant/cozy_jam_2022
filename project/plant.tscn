@@ -1,9 +1,9 @@
 [gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://plant.gd" type="Script" id=1]
-[ext_resource path="res://mixed_shadow_shader_alpha.tres" type="Shader" id=2]
+[ext_resource path="res://leaves.tres" type="Shader" id=2]
 [ext_resource path="res://models/big_leaf.obj" type="ArrayMesh" id=3]
-[ext_resource path="res://models/plant-pack/bush_01.png" type="Texture" id=4]
+[ext_resource path="res://models/bush_01.png" type="Texture" id=4]
 [ext_resource path="res://textures/gobos/gobo1.png" type="Texture" id=5]
 
 [sub_resource type="Animation" id=1]
@@ -146,27 +146,20 @@ shader_param/albedo = Color( 1, 1, 1, 1 )
 shader_param/specular = 0.22
 shader_param/metallic = 0.19
 shader_param/roughness = 0.76
-shader_param/point_size = 1.0
-shader_param/uv1_scale = Vector3( 1, 1, 1 )
-shader_param/uv1_offset = Vector3( 0, 0, 0 )
-shader_param/uv2_scale = Vector3( 1, 1, 1 )
-shader_param/uv2_offset = Vector3( 0, 0, 0 )
-shader_param/blur_directions = 12.0
-shader_param/blur_quality = 3.0
-shader_param/noise_scale = 1.0
+shader_param/noise_scale = 1.483
 shader_param/speed = 1.0
 shader_param/freqA = 1.0
 shader_param/ampA = 0.02
-shader_param/scaleA = 4.2
+shader_param/scaleA = 8.855
 shader_param/blurA = 0.0
 shader_param/freqB = 1.1
-shader_param/ampB = 0.01
-shader_param/scaleB = 7.205
+shader_param/ampB = 0.03
+shader_param/scaleB = 8.91
 shader_param/blurB = 0.0
 shader_param/freqC = 1.2
 shader_param/ampC = 0.01
-shader_param/scaleC = 6.665
-shader_param/blurC = 0.0
+shader_param/scaleC = 4.54
+shader_param/blurC = 1.0
 shader_param/texture_albedo = ExtResource( 4 )
 shader_param/noise = ExtResource( 5 )
 
@@ -199,13 +192,13 @@ calculate_tangents = false
 mesh = ExtResource( 3 )
 
 [node name="leaf_2" type="CSGMesh" parent="." groups=["leaf"]]
-transform = Transform( 0.00347117, -0.000335581, 0.00937221, 0.00096228, 0.00995359, 7.98712e-11, -0.00932872, 0.000901869, 0.00348735, -0.090969, 1.99949e-10, -0.122154 )
+transform = Transform( 0.00347116, -0.000335581, 0.00937221, 0.00096228, 0.00995359, 5.87701e-10, -0.00932872, 0.000901869, 0.00348735, -0.090969, 1.99949e-10, -0.122154 )
 calculate_tangents = false
 mesh = ExtResource( 3 )
 material = SubResource( 6 )
 
 [node name="leaf_3" type="CSGMesh" parent="." groups=["leaf"]]
-transform = Transform( 0.00463466, -1.58817e-17, -0.00886115, 0, 0.01, -1.79228e-17, 0.00886115, 8.30663e-18, 0.00463466, 0.00768858, 0, 0.103176 )
+transform = Transform( 0.00463466, -1.58817e-17, -0.00886115, 0, 0.01, -1.79229e-17, 0.00886115, 8.30665e-18, 0.00463466, 0.00768858, 0, 0.103176 )
 calculate_tangents = false
 mesh = ExtResource( 3 )
 material = SubResource( 6 )
@@ -217,7 +210,7 @@ mesh = ExtResource( 3 )
 material = SubResource( 6 )
 
 [node name="leaf_5" type="CSGMesh" parent="." groups=["leaf"]]
-transform = Transform( -0.0094477, 0.000334782, 0.00326019, 0.000529847, 0.00997285, 0.000511353, -0.00323422, 0.000655851, -0.00943979, -0.0958401, 0.0972502, -0.103261 )
+transform = Transform( -0.0094477, 0.000334781, 0.00326019, 0.000529847, 0.00997285, 0.000511352, -0.00323422, 0.000655851, -0.00943979, -0.0958401, 0.0972502, -0.103261 )
 calculate_tangents = false
 mesh = ExtResource( 3 )
 material = SubResource( 6 )

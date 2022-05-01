@@ -12,8 +12,6 @@ var current_cell
 
 onready var plant_scene = preload("res://plant.tscn")
 
-onready var tree_gobo = $dapple_shadows
-
 const GEN_SIZE = 5
 const HALF_GEN_SIZE = floor(GEN_SIZE/2)
 #export var reset_explored = false setget reset_explored
@@ -49,8 +47,6 @@ func _process(_delta):
 		if not explored.has(current_cell):
 			#print(current_cell)
 			explored.append(current_cell)
-			if not path_features:
-				path_features = $features
 			#terrain_node.set_features(path_features)
 			#terrain_node.create_terrain_chunk(Vector3(current_cell.x*terrain_node.settings.size,0,current_cell.y*terrain_node.settings.size))
 			for x in GEN_SIZE:

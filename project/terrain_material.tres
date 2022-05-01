@@ -1,8 +1,0 @@
-[gd_resource type="SpatialMaterial" load_steps=2 format=2]
-
-[ext_resource path="res://textures/Grass_01_Nrm_1.png" type="Texture" id=1]
-
-[resource]
-normal_enabled = true
-normal_scale = 1.0
-normal_texture = ExtResource( 1 )

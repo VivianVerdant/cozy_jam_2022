@@ -24,7 +24,7 @@ var nearby_plants = []
 func _ready():
 	prev_step_location = Vector3.ZERO
 
-func _process(delta):
+func _process(_delta):
 	if not enabled:
 		return
 		
